@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 
+from app.core.security import hash_password
 from app.modules.users import repository
 from app.modules.users.model import User
 from app.modules.users.schema import UserCreate
-
 
 
 def create_user(
@@ -27,11 +27,15 @@ def create_user(
     if existing_employee:
         raise ValueError("Employee ID already registered")
 
+    hashed_password = hash_password(
+        user_data.password
+    )
+
     user = User(
         employee_id=user_data.employee_id,
         name=user_data.name,
         email=user_data.email,
-        password_hash=user_data.password,
+        password_hash=hashed_password,
         role=user_data.role,
     )
 
