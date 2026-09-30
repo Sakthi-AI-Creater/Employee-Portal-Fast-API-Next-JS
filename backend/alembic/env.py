@@ -6,6 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 from app.core.config import settings
 from app.modules.users.model import User
+from app.modules.auth.model import RefreshToken
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
